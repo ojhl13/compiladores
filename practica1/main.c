@@ -35,9 +35,9 @@ int main(int argc, char const *argv[]) {
         }
         else{
           if(inputArray[indexinput] == '^'){
-            if(inputArray[indexinput] == pArray[indexp-1]){
+            if(pArray[indexinput-1] == '^'){
               outputArray[indexoutput] = pArray[indexp-1];
-              indexoutput++;
+              indexoutput++; 
             }
             else{
               pArray[indexp]= inputArray[indexinput];
@@ -71,9 +71,31 @@ int main(int argc, char const *argv[]) {
                   indexoutput++;
                   break;
                 }
+                else if (pArray[indexp-1] == '^'){
+                  outputArray[indexoutput] = pArray[indexp-1];
+                  indexp--;
+                  indexoutput++;
+                  break;
+                }
                 else{
                   break;
                 }
+                 printf("\n%s: ", "E1" );
+                i=indexinput;
+                while(i < strlen(inputArray)-1 ) {
+
+                  putc(inputArray[i],stdout);
+                  i++;
+                }
+                printf("\n%s: ", "E2" );
+                for (int k = 0; k <= indexoutput; k++) {
+                  putc(outputArray[k],stdout);
+                }
+                printf("\n%s: ","P" );
+                for (int j = 0; j <= indexp; j++) {
+                  putc(pArray[j],stdout);
+                }
+                printf("\n" );
 
               }
             }
