@@ -37,7 +37,8 @@ int main(int argc, char const *argv[]) {
           if(inputArray[indexinput] == '^'){
             if(pArray[indexinput-1] == '^'){
               outputArray[indexoutput] = pArray[indexp-1];
-              indexoutput++; 
+              indexoutput++;
+              
             }
             else{
               pArray[indexp]= inputArray[indexinput];
