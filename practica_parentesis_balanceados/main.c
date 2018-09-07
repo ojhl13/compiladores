@@ -3,20 +3,24 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
+
 
 #define SIZEARRAY 	10001
 
 
 int main(int argc, char const *argv[]) {
-  static char inputArray[SIZEARRAY];
-  char pArray[SIZEARRAY]=calloc(SIZEARRAY,sizeof(char));
+  char inputArray[SIZEARRAY];
+  char *pArray;
   char *indexinput;
   char *indexp;
   char flag;
-  indexinput=&inputArray;
-  indexp=&pArray;
+  pArray=calloc(SIZEARRAY*sizeof(char), sizeof(char) );
+  indexinput=(char*) &inputArray;
+  indexp=(char*) &pArray;
   flag=1;
   while (1) {
+    printf("%s\n", "start" );
     if(fgets(inputArray, (SIZEARRAY) , stdin))
   	{
         for (size_t len = 0; len < strlen(inputArray)-1; len++)
@@ -45,9 +49,13 @@ int main(int argc, char const *argv[]) {
           }
           indexinput++;
         }
+        printf("%s\n",  "finish for" );
         if( flag == 0)
         {
           printf("%s\n", "parentisis balanceados" );
+        }
+        else{
+          printf("%s\n",  "parentesis desbalanceados Error");
         }
         break;
     }
