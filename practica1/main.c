@@ -38,7 +38,7 @@ int main(int argc, char const *argv[]) {
             if(pArray[indexinput-1] == '^'){
               outputArray[indexoutput] = pArray[indexp-1];
               indexoutput++;
-              
+
             }
             else{
               pArray[indexp]= inputArray[indexinput];
@@ -56,11 +56,11 @@ int main(int argc, char const *argv[]) {
               indexp++;
             }
             else if(pArray[indexp-1] == '^'){
-
+//error se ecuentra aqui
               while(1)
               {
                 if(pArray[indexp-1] == '+' || pArray[indexp-1] == '-'){
-                  pArray[indexp]=inputArray[indexinput];
+                  pArray[indexp-1]=inputArray[indexinput];
                   break;
                   //outputArray[indexoutput]=pArray[indexp-1];
                   //indexp--;
@@ -68,7 +68,7 @@ int main(int argc, char const *argv[]) {
                 }
                 else if(pArray[indexp-1] == '*' || pArray[indexp-1] == '/'){
                   outputArray[indexoutput] = pArray[indexp-1];
-                  pArray[indexp]= inputArray[indexinput];
+                  pArray[indexp-1]= inputArray[indexinput];
                   indexoutput++;
                   break;
                 }
