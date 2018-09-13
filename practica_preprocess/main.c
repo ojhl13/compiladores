@@ -1,6 +1,6 @@
 
 #include <stdio.h>
-#include <ctype.h>  
+#include <ctype.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -58,11 +58,9 @@ int main (int argc, char **argv)
 		}
 	}
 
-	
+
 	printf("Cerrando archivo: %s\n", name);
 	fclose(myFile);
 	return 0;
 
 }
-
-
