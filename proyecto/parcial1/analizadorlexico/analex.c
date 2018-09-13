@@ -114,6 +114,7 @@ int main (int argc, char **argv)
   int numcol;
   token arrayTokens[SIZEARRAY];
   int numoftokens;
+  char temp;
 
   readFileName = argv[1];
   readFile     = fopen(readFileName,"r");
@@ -144,35 +145,198 @@ int main (int argc, char **argv)
         //printf("%s %s: \n" , "entro a ciclo: ", buffer);
         *ptrbuffer = character;
         ptrbuffer++;
-        numcol++;
         character = fgetc(readFile);
+        numcol++;
       }
-      // putchar(character);
-      //putchar('\n');
-      if( (search(character) != 255 ))
+      temp = search(character);
+      if( temp < 255 )
       {
-        //printf("%s %s\n", "termine cadena: ", buffer );
         arrayTokens[numoftokens].line=numline;
         arrayTokens[numoftokens].col=numcol;
-        //printf("%s\n", *(tags[0]));
         arrayTokens[numoftokens].tag="ID";
-        printf("%s\n", ptrbufferstart );
-        
         strcpy(arrayTokens[numoftokens].value,buffer);
-        printf("%s\n",arrayTokens[numoftokens].value);
+
+      }
+      else if( temp == 255){
+        arrayTokens[numoftokens].line=numline;
+        arrayTokens[numoftokens].col=numcol;
+        arrayTokens[numoftokens].tag="ERROR";
+        strcpy(arrayTokens[numoftokens].value,buffer);
+      }
         ptrbuffer=ptrbufferstart;
         numoftokens++;
-
-        printf("%c\n",  );
-        printf("%s\n", &tags[(search(character))]);//,(char *)character);
-
 
       }
 
 
 
     }
-    //memset(buffer,'0',sizeof(buffer)*SIZEBUFF);
+    else if(isdigit(character))
+    {
+      *ptrbuffer = character;
+      ptrbuffer++;
+      numcol++,
+      character = fgetc(readFile);
+      while (isdigit(character))
+      {
+        /* code */
+        *ptrbuffer = character;
+        ptrbuffer++;
+        numcol++,
+        character = fgetc(readFile);
+      }
+      if(character == '.')
+      {
+        *ptrbuffer = character;
+        ptrbuffer++;
+        numcol++,
+        character = fgetc(readFile);
+        while (isdigit(character))
+        {
+          /* code */
+          *ptrbuffer = character;
+          ptrbuffer++;
+          numcol++,
+          character = fgetc(readFile);
+        }
+        // REAL
+        arrayTokens[numoftokens].line=numline;
+        arrayTokens[numoftokens].col=numcol;
+        arrayTokens[numoftokens].tag="REAL";
+        strcpy(arrayTokens[numoftokens].value,buffer);
+
+      }
+      else//ENTERO
+      {
+        arrayTokens[numoftokens].line=numline;
+        arrayTokens[numoftokens].col=numcol;
+        arrayTokens[numoftokens].tag="ENTETO";
+        strcpy(arrayTokens[numoftokens].value,buffer);
+      }
+
+        ptrbuffer=ptrbufferstart;
+        numoftokens++;
+    }
+    else if (character == '\n')
+    {
+        if ((character = fgetc(readFile)== '\r') {
+          numline++:
+        }
+        else{
+          numline++;
+        }
+    }
+    else if ( character  =='\r')
+    {
+      if ((character = fgetc(readFile)== '\n')
+      {
+        numline++;
+      }
+      else{
+        numline++;
+      }
+    }
+    else if (character == '(')
+    {
+      arrayTokens[numoftokens].line=numline;
+      arrayTokens[numoftokens].col=numcol;
+      arrayTokens[numoftokens].tag="PAR";
+      arrayTokens[numoftokens].value='(';
+
+    }
+    else if (character == ')')
+    {
+      arrayTokens[numoftokens].line=numline;
+      arrayTokens[numoftokens].col=numcol;
+      arrayTokens[numoftokens].tag="PAR";
+      arrayTokens[numoftokens].value=')';
+
+    }
+    else if (character == '{')
+    {
+      arrayTokens[numoftokens].line=numline;
+      arrayTokens[numoftokens].col=numcol;
+      arrayTokens[numoftokens].tag="COR";
+      arrayTokens[numoftokens].value='{';
+
+    }
+    else if (character == '}')
+    {
+      arrayTokens[numoftokens].line=numline;
+      arrayTokens[numoftokens].col=numcol;
+      arrayTokens[numoftokens].tag="COR";
+      arrayTokens[numoftokens].value='}';
+
+    }
+    else if (character == ',') {
+      arrayTokens[numoftokens].line=numline;
+      arrayTokens[numoftokens].col=numcol;
+      arrayTokens[numoftokens].tag="COMA";
+      arrayTokens[numoftokens].value=',';
+
+    }
+    else if (character == ';') {
+      arrayTokens[numoftokens].line=numline;
+      arrayTokens[numoftokens].col=numcol;
+      arrayTokens[numoftokens].tag="PC";
+      arrayTokens[numoftokens].value=';';
+
+    }
+    else if (character == '<') {
+      arrayTokens[numoftokens].line=numline;
+      arrayTokens[numoftokens].col=numcol;
+      arrayTokens[numoftokens].tag="OR";
+      arrayTokens[numoftokens].value='<';
+
+    }
+    else if (character == '>') {
+      arrayTokens[numoftokens].line=numline;
+      arrayTokens[numoftokens].col=numcol;
+      arrayTokens[numoftokens].tag="OR";
+      arrayTokens[numoftokens].value='>';
+
+    }
+    else if (character == '!') {
+      arrayTokens[numoftokens].line=numline;
+      arrayTokens[numoftokens].col=numcol;
+      arrayTokens[numoftokens].tag="NOT";
+      arrayTokens[numoftokens].value='!';
+
+    }
+
+    else if (character == '=') {
+      if((character== fgetc(readFile)== '='))
+      {
+      arrayTokens[numoftokens].line=numline;
+      arrayTokens[numoftokens].col=numcol;
+      arrayTokens[numoftokens].tag="OR";
+      arrayTokens[numoftokens].value='==';
+      }
+      else
+      {
+        arrayTokens[numoftokens].line=numline;
+        arrayTokens[numoftokens].col=numcol;
+        arrayTokens[numoftokens].tag="ASIGN";
+        arrayTokens[numoftokens].value='=';
+      }
+    }
+
+    else if (character == '|') {
+      arrayTokens[numoftokens].line=numline;
+      arrayTokens[numoftokens].col=numcol;
+      arrayTokens[numoftokens].tag="OL";
+      arrayTokens[numoftokens].value='|';
+
+    }
+
+    else if (character == '&') {
+      arrayTokens[numoftokens].line=numline;
+      arrayTokens[numoftokens].col=numcol;
+      arrayTokens[numoftokens].tag="OL";
+      arrayTokens[numoftokens].value='&';
+
+    }
+
 
 
 
