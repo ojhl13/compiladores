@@ -1,0 +1,97 @@
+/***Gramatica libre de contexto para la representacion de analisis sintactico**/
+
+/**************************bloque fuente***************************************/
+
+<fuente>  ::= [<bloquefun>] <main>
+
+/*******************************termina bloque*********************************/
+
+/**************************bloque funciones************************************/
+
+<bloquefun> ::= {<fun>}
+<fun>       ::= <tipodato> <id> '(' [<argumentos>] ')'
+                '{'
+                [<declaraciones>]
+                [<operaciones>]
+                <regresa>
+                '}'
+
+/******************apoyos en bloque funciones**********************************/
+
+<tipodato>   ::= 'entero' | 'real' | 'logico'
+<id>          ::= {'a-z'}[{a-z}|{0-9}|[A-Z]]
+<argumentos>  ::= <argumento> [{',' <argumento> }]
+<argumento>   ::= <tipodato> <id>
+
+/***********************termina bloque funciones*******************************/
+
+/****************************bloque principal**********************************/
+
+<main>  ::= principal '(' ')'
+            '{'
+            [<declaraciones>]
+            [<operaciones>]
+            '}'
+/*******************************termina bloque*********************************/
+
+/****************************bloque de declaraciones y operaciones*************/
+
+<declaraciones> ::= <tipodato> <id> ';'
+<operaciones>   ::= {<operacion>}
+<operacion>     ::= {<expresiones>} | <IF> | <WHILE>
+
+<IF>            ::= 'si' '(' <id> ')'
+                    '{'
+                    <bloque>
+                    '}
+                    '
+<WHILE>         ::= 'mientras' '(' <id> ')'
+                    '{'
+                    <bloque>
+                    '}'
+
+<expresiones> ::= <id> '=' <expresion> ';'
+<expresion>   ::= <OA> | <OL> | <OR> | <asignacion> | '!' <id>
+<bloque>      ::= [{<IF>}] [{<WHILE>}] [{expresiones}]
+
+/*******************************termina bloque*********************************/
+
+/*****************************operaciones aritmeticas**************************/
+
+<OA> ::= <OA> <operadoraritmetico> <OA>
+     ::= '(' <OA> <operadoraritmetico> <OA> ')'
+<OA> ::= <operando> <operadoraritmetico> <operando>
+
+<operando>            ::= <id> | <numeroEntero> | <numeroReal> | <fun>
+<operadoraritmetico>  ::= '+' | '-' | '/' | '^' | '*'
+
+/*******************************termina bloque*********************************/
+
+/*****************************operaciones logicas******************************/
+
+<OL> ::= <operandologico> <operadorlogico> <operandologico>
+
+<operandologico>  ::= <id> | <fun> | 'verdadero' | 'falso'
+<operadorlogico>     ::= '&' | '|'
+
+/*******************************termina bloque*********************************/
+
+/************************operaciones relacionales******************************/
+
+<OR>           ::= <operando> <operador_rel> <operando>
+<operador_rel> ::= '==' | '>' | '<'
+
+/*******************************termina bloque*********************************/
+
+/*************************bloque asignacion************************************/
+
+<asignacion> :: = <operando> | 'verdadero' | 'falso'
+
+/*******************************termina bloque*********************************/
+
+/**************************tipos de numeros************************************/
+<numeroReal> :: = {<numeros>} '.' {<numeros>}
+<numeros> :: = 1|2|3|4|5|6|7|8|9|0
+<numeroEntero> :: = {<numeros>}
+
+/*******************************termina bloque*********************************/
