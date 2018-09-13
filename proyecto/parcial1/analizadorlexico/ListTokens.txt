@@ -1,164 +1,83 @@
-162.
-6	0
-6	0
-11	0
-11	0
-17	0
-17	0
-19	0
-19	0
-23	0
-23	0
-25	0
-25	0
-29	0
-29	0
-31	0
-31	0
-37	0
-37	0
-39	0
-39	0
-40	0
-40	0
-42	0
-42	0
-44	0
-44	0
-46	0
-46	0
-51	0
-51	0
-52	0
-52	0
-53	0
-53	0
-54	0
-54	0
-55	0
-55	0
-56	0
-56	0
-57	0
-57	0
-58	0
-58	0
-65	0
-65	0
-66	0
-66	0
-70	0
-70	0
-75	0
-75	0
-81	0
-81	0
-83	0
-83	0
-87	0
-87	0
-89	0
-89	0
-95	0
-95	0
-97	0
-97	0
-101	0
-101	0
-103	0
-103	0
-109	0
-109	0
-111	0
-111	0
-117	0
-117	0
-119	0
-119	0
-120	0
-120	0
-122	0
-122	0
-124	0
-124	0
-126	0
-126	0
-131	0
-131	0
-132	0
-132	0
-134	0
-134	0
-136	0
-136	0
-138	0
-138	0
-143	0
-143	0
-145	0
-145	0
-146	0
-146	0
-147	0
-147	0
-149	0
-149	0
-151	0
-151	0
-153	0
-153	0
-155	0
-155	0
-163	0
-163	0
-164	0
-164	0
-165	0
-165	0
-166	0
-166	0
-167	0
-167	0
-168	0
-168	0
-169	0
-169	0
-170	0
-170	0
-172	0
-172	0
-174	0
-174	0
-176	0
-176	0
-178	0
-178	0
-185	0
-185	0
-187	0
-187	0
-196	0
-196	0
-202	0
-202	0
-204	0
-204	0
-208	0
-208	0
-210	0
-210	0
-216	0
-216	0
-218	0
-218	0
-224	0
-224	0
-226	0
-226	0
-235	0
-235	0
-238	0
-238	0
-242	0
-242	0
+81.
+ID,entero,6,0
+ID,func1o,11,0
+ID,logico,17,0
+ID,l1gico,19,0
+ID,realco,23,0
+ID,r1alco,25,0
+ID,realco,29,0
+ID,e1alco,31,0
+ID,logico,37,0
+ID,e2gico,39,0
+ID,a2gico,40,0
+ID,e1gico,42,0
+ID,e2gico,44,0
+ID,e3gico,46,0
+ID,func1o,51,0
+ID,bunc1o,52,0
+ID,bunc1o,53,0
+ID,bunc1o,54,0
+ID,cunc1o,55,0
+ID,bunc1o,56,0
+ID,bunc1o,57,0
+ID,cunc1o,58,0
+ID,regresa,65,0
+ID,aegresa,66,0
+ID,realesa,70,0
+ID,func2sa,75,0
+ID,logicoa,81,0
+ID,l1gicoa,83,0
+ID,realcoa,87,0
+ID,r1alcoa,89,0
+ID,enteroa,95,0
+ID,e1teroa,97,0
+ID,realroa,101,0
+ID,e1alroa,103,0
+ID,logicoa,109,0
+ID,e2gicoa,111,0
+ID,enteroa,117,0
+ID,e2teroa,119,0
+ID,a2teroa,120,0
+ID,e1teroa,122,0
+ID,e2teroa,124,0
+ID,e3teroa,126,0
+ID,func1oa,131,0
+ID,bunc1oa,132,0
+ID,e1nc1oa,134,0
+ID,e2nc1oa,136,0
+ID,e3nc1oa,138,0
+ID,func1oa,143,0
+ID,c1nc1oa,145,0
+ID,a1nc1oa,146,0
+ID,b1nc1oa,147,0
+ID,c2nc1oa,149,0
+ID,c1nc1oa,151,0
+ID,sinc1oa,153,0
+ID,c1nc1oa,155,0
+ID,mientrashËÿÿ,163,0
+ID,bientrashËÿÿ,164,0
+ID,bientrashËÿÿ,165,0
+ID,bientrashËÿÿ,166,0
+ID,sientrashËÿÿ,167,0
+ID,aientrashËÿÿ,168,0
+ID,bientrashËÿÿ,169,0
+ID,cientrashËÿÿ,170,0
+ID,c1entrashËÿÿ,172,0
+ID,c1entrashËÿÿ,174,0
+ID,sientrashËÿÿ,176,0
+ID,c2entrashËÿÿ,178,0
+ID,regresashËÿÿ,185,0
+ID,x1gresashËÿÿ,187,0
+ID,principalËÿÿ,196,0
+ID,enteropalËÿÿ,202,0
+ID,e1teropalËÿÿ,204,0
+ID,realropalËÿÿ,208,0
+ID,e1alropalËÿÿ,210,0
+ID,logicopalËÿÿ,216,0
+ID,e2gicopalËÿÿ,218,0
+ID,enteropalËÿÿ,224,0
+ID,e2teropalËÿÿ,226,0
+ID,resultadoËÿÿ,235,0
+ID,funultadoËÿÿ,238,0
+ID,fun2ltadoËÿÿ,242,0
 

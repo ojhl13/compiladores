@@ -25,7 +25,7 @@ typedef struct tok{
   int line;
   int col;
   char *tag;
-  char *value;
+  char value[SIZEBUFF];
 }token;
 
 /*table of symbols*/
@@ -124,14 +124,6 @@ int main (int argc, char **argv)
   character = 0;
   numoftokens=0;
   writeFileName="ListTokens.txt";
-  #define SAVENEWTOKEN(X,Y) do{\
-                            arrayTokens[numoftokens].line=numline;\
-                            arrayTokens[numoftokens].col=numcol;\
-                            arrayTokens[numoftokens].tag=(X);\
-                            arrayTokens[numoftokens].value=(Y);\
-                            ptrbuffer=ptrbufferstart;\
-                            numoftokens++;\
-                            }while(0);
 
   PRINTDEBUG("Open File in path: %s\n", readFileName);
   while((character = fgetc(readFile)) != EOF)
@@ -155,13 +147,24 @@ int main (int argc, char **argv)
         numcol++;
         character = fgetc(readFile);
       }
-      putchar(character);
-      putchar('\n');
+      // putchar(character);
+      //putchar('\n');
       if( (search(character) != 255 ))
       {
         //printf("%s %s\n", "termine cadena: ", buffer );
-        SAVENEWTOKEN((&tags[0]),ptrbufferstart);
-        SAVENEWTOKEN((&tags[(search(character))]),(char *)character);
+        arrayTokens[numoftokens].line=numline;
+        arrayTokens[numoftokens].col=numcol;
+        //printf("%s\n", *(tags[0]));
+        arrayTokens[numoftokens].tag="ID";
+        printf("%s\n", ptrbufferstart );
+        
+        strcpy(arrayTokens[numoftokens].value,buffer);
+        printf("%s\n",arrayTokens[numoftokens].value);
+        ptrbuffer=ptrbufferstart;
+        numoftokens++;
+
+        printf("%c\n",  );
+        printf("%s\n", &tags[(search(character))]);//,(char *)character);
 
 
       }
@@ -181,11 +184,12 @@ int main (int argc, char **argv)
   printf("%i\n", numoftokens );
   sprintf(buffer,"%i.\n",numoftokens);
   fputs(buffer,readFile);
-  for (size_t i = 0; i < numoftokens; i++)
+  for (int i = 0; i < numoftokens; i++)
   {
-    //fputs(arrayTokens[i].tag,readFile);fputs("\t",readFile);
-    //fputs(arrayTokens[i].value,readFile);fputs("\t",readFile);
-    sprintf(buffer,"%i\t",arrayTokens[i].col);fputs(buffer,readFile);
+    //printf("%s\n",arrayTokens[i].tag );
+    fputs(arrayTokens[i].tag,readFile);fputs(",",readFile);
+    fputs(arrayTokens[i].value,readFile);fputs(",",readFile);
+    sprintf(buffer,"%i,",arrayTokens[i].col);fputs(buffer,readFile);
     sprintf(buffer,"%i\n\r",arrayTokens[i].line);fputs(buffer,readFile);
   }
     PRINTDEBUG("Cerrando archivo: %s\n", writeFileName);
