@@ -181,7 +181,13 @@ int main (int argc, char **argv)
   printf("%i\n", numoftokens );
   sprintf(buffer,"%i.\n",numoftokens);
   fputs(buffer,readFile);
-  
+  for (size_t i = 0; i < numoftokens; i++)
+  {
+    //fputs(arrayTokens[i].tag,readFile);fputs("\t",readFile);
+    //fputs(arrayTokens[i].value,readFile);fputs("\t",readFile);
+    sprintf(buffer,"%i\t",arrayTokens[i].col);fputs(buffer,readFile);
+    sprintf(buffer,"%i\n\r",arrayTokens[i].line);fputs(buffer,readFile);
+  }
     PRINTDEBUG("Cerrando archivo: %s\n", writeFileName);
   fclose(readFile);
   PRINTDEBUG("fin");
