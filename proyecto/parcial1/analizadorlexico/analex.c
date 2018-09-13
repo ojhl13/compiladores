@@ -42,8 +42,9 @@ int main (int argc, char **argv)
 
 
 /******************************************************************************
+* definitions of test files
 * test1.exe open and close file
 * test2.exe read print and close fileName
-
-
+*
+*
 *******************************************************************************/
