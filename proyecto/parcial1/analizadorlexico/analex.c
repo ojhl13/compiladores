@@ -10,6 +10,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 #define DEBUG
 #ifdef DEBUG
@@ -98,9 +99,11 @@ char compare2syms( char data)
 }
 
 
+
 int main (int argc, char **argv)
 {
 
+  char *writeFileName;
   char *readFileName;                            /*path of read file*/
   FILE *readFile;                                /*pointer to read file*/
   char character;
@@ -120,14 +123,14 @@ int main (int argc, char **argv)
   numline=0;
   character = 0;
   numoftokens=0;
-
+  writeFileName="ListTokens.txt";
   #define SAVENEWTOKEN(X,Y) do{\
                             arrayTokens[numoftokens].line=numline;\
                             arrayTokens[numoftokens].col=numcol;\
                             arrayTokens[numoftokens].tag=(X);\
                             arrayTokens[numoftokens].value=(Y);\
                             ptrbuffer=ptrbufferstart;\
-                            
+                            numoftokens++;\
                             }while(0);
 
   PRINTDEBUG("Open File in path: %s\n", readFileName);
@@ -152,23 +155,36 @@ int main (int argc, char **argv)
         numcol++;
         character = fgetc(readFile);
       }
-      if( (search(character) != 255 ) | (search(character) != 4) | \
-          (search(character) != 5)   | (search(character) != 7)  | \
-          (search(character) != 13) )
+      putchar(character);
+      putchar('\n');
+      if( (search(character) != 255 ))
       {
-        printf("%s %s\n", "termine cadena: ", buffer );
-        SAVENEWTOKEN((&arrayTokens[0]),ptrbufferstart);
+        //printf("%s %s\n", "termine cadena: ", buffer );
+        SAVENEWTOKEN((&tags[0]),ptrbufferstart);
+        SAVENEWTOKEN((&tags[(search(character))]),(char *)character);
 
 
       }
 
+
+
     }
+    //memset(buffer,'0',sizeof(buffer)*SIZEBUFF);
 
 
 
   }
   PRINTDEBUG("Cerrando archivo: %s\n", readFileName);
   fclose(readFile);
+
+  readFile = fopen ( "ListTokens.txt", "w+");
+  printf("%i\n", numoftokens );
+  sprintf(buffer,"%i.\n",numoftokens);
+  fputs(buffer,readFile);
+  
+    PRINTDEBUG("Cerrando archivo: %s\n", writeFileName);
+  fclose(readFile);
+  PRINTDEBUG("fin");
   return 0;
 }
 
