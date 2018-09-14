@@ -5,7 +5,7 @@
 * Correo  : A01223081@itesm.mx
 * Version : V1.0.0
 *******************************************************************************/
-
+#include "..\analizadorlexico\analex.h"
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
@@ -16,10 +16,9 @@
 #ifdef DEBUG
 #define PRINTDEBUG(...) do{								        \
 							fprintf(stderr, __VA_ARGS__ );			\
-							}while(0)
+            }while(0);
 #endif
 #define SIZEBUFF 100
-#define SIZEARRAY 10000
 
 typedef struct tok{
   int line;
@@ -27,7 +26,9 @@ typedef struct tok{
   char *tag;
   char value[SIZEBUFF];
 }token;
-
+int numoftokens;
+FILE *readFile;
+token arrayTokens[SIZEARRAY];
 /*table of symbols*/
 /*0->\t,1->\n,2->space,3-> \r*/
 /*4->{,5->},6->(,7->)*/
@@ -44,7 +45,8 @@ static char *tags[] ={\
                         "OA","OR","NEG","OP"\
                       };
 
-
+                      int numline;
+                      int numcol;
 
 char compare2syms( char data);
 
@@ -98,22 +100,140 @@ char compare2syms( char data)
   return data2return;
 }
 
+void checksimbols (char character)
+{
+  if (character == '(')
+  {
+    arrayTokens[numoftokens].line=numline;
+    arrayTokens[numoftokens].col=numcol;
+    arrayTokens[numoftokens].tag="PAR";
+    arrayTokens[numoftokens].value[0]='(';
 
+  }
+  else if (character == ')')
+  {
+    arrayTokens[numoftokens].line=numline;
+    arrayTokens[numoftokens].col=numcol;
+    arrayTokens[numoftokens].tag="PAR";
+    arrayTokens[numoftokens].value[0]=')';
+
+
+  }
+  else if (character == '{')
+  {
+    arrayTokens[numoftokens].line=numline;
+    arrayTokens[numoftokens].col=numcol;
+    arrayTokens[numoftokens].tag="COR";
+    arrayTokens[numoftokens].value[0]='{';
+
+  }
+  else if (character == '}')
+  {
+    arrayTokens[numoftokens].line=numline;
+    arrayTokens[numoftokens].col=numcol;
+    arrayTokens[numoftokens].tag="COR";
+    arrayTokens[numoftokens].value[0]='}';
+
+  }
+  else if (character == ',') {
+    arrayTokens[numoftokens].line=numline;
+    arrayTokens[numoftokens].col=numcol;
+    arrayTokens[numoftokens].tag="COMA";
+    arrayTokens[numoftokens].value[0]=',';
+
+  }
+  else if (character == ';') {
+    arrayTokens[numoftokens].line=numline;
+    arrayTokens[numoftokens].col=numcol;
+    arrayTokens[numoftokens].tag="PC";
+    arrayTokens[numoftokens].value[0]=';';
+
+  }
+  else if (character == '<') {
+    arrayTokens[numoftokens].line=numline;
+    arrayTokens[numoftokens].col=numcol;
+    arrayTokens[numoftokens].tag="OR";
+    arrayTokens[numoftokens].value[0]='<';
+
+  }
+  else if (character == '>') {
+    arrayTokens[numoftokens].line=numline;
+    arrayTokens[numoftokens].col=numcol;
+    arrayTokens[numoftokens].tag="OR";
+    arrayTokens[numoftokens].value[0]='>';
+
+  }
+  else if (character == '!') {
+    arrayTokens[numoftokens].line=numline;
+    arrayTokens[numoftokens].col=numcol;
+    arrayTokens[numoftokens].tag="NOT";
+    arrayTokens[numoftokens].value[0]='!';
+
+  }
+
+  else if (character == '=') {
+    if((character== fgetc(readFile)== '='))
+    {
+    arrayTokens[numoftokens].line=numline;
+    arrayTokens[numoftokens].col=numcol;
+    arrayTokens[numoftokens].tag="OR";
+    arrayTokens[numoftokens].value[0]='=';
+    arrayTokens[numoftokens].value[1]='=';
+    }
+    else
+    {
+      arrayTokens[numoftokens].line=numline;
+      arrayTokens[numoftokens].col=numcol;
+      arrayTokens[numoftokens].tag="ASIGN";
+      arrayTokens[numoftokens].value[0]='=';
+    }
+  }
+
+  else if (character == '|') {
+    arrayTokens[numoftokens].line=numline;
+    arrayTokens[numoftokens].col=numcol;
+    arrayTokens[numoftokens].tag="OL";
+    arrayTokens[numoftokens].value[0]='|';
+
+  }
+
+  else if (character == '&') {
+    arrayTokens[numoftokens].line=numline;
+    arrayTokens[numoftokens].col=numcol;
+    arrayTokens[numoftokens].tag="OL";
+    arrayTokens[numoftokens].value[0]='&';
+
+  }
+
+}
+int checkPR (char *ptr){
+  char data2return=0;
+    data2return=strcmp(ptr,"mientras");
+    data2return=strcmp(ptr,"si");
+    data2return=strcmp(ptr,"entero");
+    data2return=strcmp(ptr,"real");
+    data2return=strcmp(ptr,"verdadero");
+    data2return=strcmp(ptr,"falso");
+    data2return=strcmp(ptr,"principal");
+    data2return=strcmp(ptr,"logico");
+    data2return=strcmp(ptr,"regresa");
+
+    return data2return;
+}
 
 int main (int argc, char **argv)
 {
 
   char *writeFileName;
   char *readFileName;                            /*path of read file*/
-  FILE *readFile;                                /*pointer to read file*/
+                              /*pointer to read file*/
   char character;
   char buffer[SIZEBUFF];
   char *ptrbuffer;
   char *ptrbufferstart;
-  int numline;
-  int numcol;
-  token arrayTokens[SIZEARRAY];
-  int numoftokens;
+
+
+
   char temp;
 
   readFileName = argv[1];
@@ -127,7 +247,7 @@ int main (int argc, char **argv)
   writeFileName="ListTokens.txt";
 
   PRINTDEBUG("Open File in path: %s\n", readFileName);
-  while((character = fgetc(readFile)) != EOF)
+  while(character != EOF)
   {
     //#ifdef TEST2
     //putchar( character );
@@ -151,26 +271,55 @@ int main (int argc, char **argv)
       temp = search(character);
       if( temp < 255 )
       {
+        if(checkPR(ptrbufferstart)== 0){
         arrayTokens[numoftokens].line=numline;
         arrayTokens[numoftokens].col=numcol;
-        arrayTokens[numoftokens].tag="ID";
+        arrayTokens[numoftokens].tag="PR";
         strcpy(arrayTokens[numoftokens].value,buffer);
+        }
+        else
+        {
+          arrayTokens[numoftokens].line=numline;
+          arrayTokens[numoftokens].col=numcol;
+          arrayTokens[numoftokens].tag="ID";
+          strcpy(arrayTokens[numoftokens].value,buffer);
+        }
+
+
+
+
+                //memset(arrayTokens, 0, sizeof(arrayTokens));
+        for (int i = 0; i < SIZEBUFF-1; i++) {
+          /* code */
+          buffer[i]=0;
+        }
+
+        checksimbols(character);
+
 
       }
-      else if( temp == 255){
+      else{
+        printf("%s\n","errror" );
         arrayTokens[numoftokens].line=numline;
         arrayTokens[numoftokens].col=numcol;
         arrayTokens[numoftokens].tag="ERROR";
         strcpy(arrayTokens[numoftokens].value,buffer);
+              //  memset(arrayTokens, 0, sizeof(arrayTokens));
+        printf("Error en la linea %i en el caracter %i : %s\n",numline,numcol,buffer );
+        for (int i = 0; i < SIZEBUFF-1; i++) {
+          /* code */
+          buffer[i]=0;
+        }
+
       }
         ptrbuffer=ptrbufferstart;
         numoftokens++;
 
-      }
-
-
-
     }
+
+
+
+
     else if(isdigit(character))
     {
       *ptrbuffer = character;
@@ -210,7 +359,7 @@ int main (int argc, char **argv)
       {
         arrayTokens[numoftokens].line=numline;
         arrayTokens[numoftokens].col=numcol;
-        arrayTokens[numoftokens].tag="ENTETO";
+        arrayTokens[numoftokens].tag="ENTERO";
         strcpy(arrayTokens[numoftokens].value,buffer);
       }
 
@@ -219,127 +368,30 @@ int main (int argc, char **argv)
     }
     else if (character == '\n')
     {
-        if ((character = fgetc(readFile)== '\r') {
-          numline++:
+        if ((character = fgetc(readFile)== '\r')) {
+          numline++;
         }
         else{
           numline++;
         }
+        printf("%s\n",  "clear columndas");
+        numcol=0;
     }
     else if ( character  =='\r')
     {
-      if ((character = fgetc(readFile)== '\n')
+      if ((character = fgetc(readFile)== '\n'))
       {
         numline++;
       }
       else{
         numline++;
       }
+      numcol=0;
     }
-    else if (character == '(')
-    {
-      arrayTokens[numoftokens].line=numline;
-      arrayTokens[numoftokens].col=numcol;
-      arrayTokens[numoftokens].tag="PAR";
-      arrayTokens[numoftokens].value='(';
-
-    }
-    else if (character == ')')
-    {
-      arrayTokens[numoftokens].line=numline;
-      arrayTokens[numoftokens].col=numcol;
-      arrayTokens[numoftokens].tag="PAR";
-      arrayTokens[numoftokens].value=')';
-
-    }
-    else if (character == '{')
-    {
-      arrayTokens[numoftokens].line=numline;
-      arrayTokens[numoftokens].col=numcol;
-      arrayTokens[numoftokens].tag="COR";
-      arrayTokens[numoftokens].value='{';
-
-    }
-    else if (character == '}')
-    {
-      arrayTokens[numoftokens].line=numline;
-      arrayTokens[numoftokens].col=numcol;
-      arrayTokens[numoftokens].tag="COR";
-      arrayTokens[numoftokens].value='}';
-
-    }
-    else if (character == ',') {
-      arrayTokens[numoftokens].line=numline;
-      arrayTokens[numoftokens].col=numcol;
-      arrayTokens[numoftokens].tag="COMA";
-      arrayTokens[numoftokens].value=',';
-
-    }
-    else if (character == ';') {
-      arrayTokens[numoftokens].line=numline;
-      arrayTokens[numoftokens].col=numcol;
-      arrayTokens[numoftokens].tag="PC";
-      arrayTokens[numoftokens].value=';';
-
-    }
-    else if (character == '<') {
-      arrayTokens[numoftokens].line=numline;
-      arrayTokens[numoftokens].col=numcol;
-      arrayTokens[numoftokens].tag="OR";
-      arrayTokens[numoftokens].value='<';
-
-    }
-    else if (character == '>') {
-      arrayTokens[numoftokens].line=numline;
-      arrayTokens[numoftokens].col=numcol;
-      arrayTokens[numoftokens].tag="OR";
-      arrayTokens[numoftokens].value='>';
-
-    }
-    else if (character == '!') {
-      arrayTokens[numoftokens].line=numline;
-      arrayTokens[numoftokens].col=numcol;
-      arrayTokens[numoftokens].tag="NOT";
-      arrayTokens[numoftokens].value='!';
-
-    }
-
-    else if (character == '=') {
-      if((character== fgetc(readFile)== '='))
-      {
-      arrayTokens[numoftokens].line=numline;
-      arrayTokens[numoftokens].col=numcol;
-      arrayTokens[numoftokens].tag="OR";
-      arrayTokens[numoftokens].value='==';
-      }
-      else
-      {
-        arrayTokens[numoftokens].line=numline;
-        arrayTokens[numoftokens].col=numcol;
-        arrayTokens[numoftokens].tag="ASIGN";
-        arrayTokens[numoftokens].value='=';
-      }
-    }
-
-    else if (character == '|') {
-      arrayTokens[numoftokens].line=numline;
-      arrayTokens[numoftokens].col=numcol;
-      arrayTokens[numoftokens].tag="OL";
-      arrayTokens[numoftokens].value='|';
-
-    }
-
-    else if (character == '&') {
-      arrayTokens[numoftokens].line=numline;
-      arrayTokens[numoftokens].col=numcol;
-      arrayTokens[numoftokens].tag="OL";
-      arrayTokens[numoftokens].value='&';
-
-    }
+    checksimbols(character);
 
 
-
-
+    character = fgetc(readFile);
   }
   PRINTDEBUG("Cerrando archivo: %s\n", readFileName);
   fclose(readFile);

@@ -16,7 +16,7 @@
 #ifdef DEBUG
 #define PRINTDEBUG(...) do{								        \
 							fprintf(stderr, __VA_ARGS__ );			\
-							}while(0)
+            }while(0);
 #endif
 #define SIZEBUFF 100
 #define SIZEARRAY 10000
@@ -46,15 +46,18 @@ static char *tags[] ={\
 
                       char *readFileName;                            /*path of read file*/
                       FILE *readFile;
-                      token arrayTokens[SIZEARRAY];
+                      extern token arrayTokens[SIZEARRAY];
 
 char readTokens(void)
 {
-  
+  for (size_t i = 0; i < SIZEARRAY; i++) {
+
+  }
 }
 int main(int argc, char const *argv[]) {
 
-
+  readFileName = argv[1];
+  readFile     = fopen(readFileName,"r");
 
   if(readTokens()){
     PRINTDEBUG("lectura correcta")
@@ -64,6 +67,10 @@ int main(int argc, char const *argv[]) {
   }
   while (1) {
     /* code */
+    if (/* condition */) {
+      /* code */
+    }
+
 
   }
 

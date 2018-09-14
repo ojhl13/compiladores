@@ -1,12 +1,12 @@
-entero func1(logico l1, real r1) {
+en@tero func1(logico l1, real r1) {
 	real e1;
 	logico e2;
-	
+
 	a = ((e1 + e2) - e3) / func1() ^ 3;
-	b = 4 > 4;	
+	b = 4 > 4;
 	b = b == c;
 	b = b | c;
-	
+
 	regresa a;
 }
 
@@ -15,7 +15,7 @@ real func2(logico l1, real r1) {
 	real e1;
 	logico e2;
 	entero e2;
-	
+
 	a = ((e1 + e2) - e3) / func1() ^ 3;
 	b = ((e1 + e2) - e3) / func1() ^ 3;
 	c1 = a & b;
@@ -37,6 +37,6 @@ principal() {
 	real e1;
 	logico e2;
 	entero e2;
-	
+
 	resultado = fun()1 + fun2();
 }
