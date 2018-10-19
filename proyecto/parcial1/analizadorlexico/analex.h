@@ -1,6 +1,6 @@
 #ifndef ANALEC_H
 #define ANALEX_H
-#define SIZEARRAY 10000
+#define SIZEARRAY 100000
 
 
 //token arrayTokens[SIZEARRAY];

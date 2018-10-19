@@ -18,7 +18,7 @@
 							fprintf(stderr, __VA_ARGS__ );			\
             }while(0);
 #endif
-#define SIZEBUFF 100
+#define SIZEBUFF 1000
 
 typedef struct tok{
   int line;
@@ -29,6 +29,8 @@ typedef struct tok{
 int numoftokens;
 FILE *readFile;
 token arrayTokens[SIZEARRAY];
+char *ptrbuffer;
+  char *ptrbufferstart;
 /*table of symbols*/
 /*0->\t,1->\n,2->space,3-> \r*/
 /*4->{,5->},6->(,7->)*/
@@ -204,20 +206,14 @@ void checksimbols (char character)
     arrayTokens[numoftokens].value[0]='&';
 
   }
-
+  ptrbuffer=ptrbufferstart;
+  numoftokens++;
 }
 int checkPR (char *ptr){
   char data2return=0;
-    data2return=strcmp(ptr,"mientras");
-    data2return=strcmp(ptr,"si");
-    data2return=strcmp(ptr,"entero");
-    data2return=strcmp(ptr,"real");
-    data2return=strcmp(ptr,"verdadero");
-    data2return=strcmp(ptr,"falso");
-    data2return=strcmp(ptr,"principal");
-    data2return=strcmp(ptr,"logico");
-    data2return=strcmp(ptr,"regresa");
-
+    data2return=strcmp(ptr,"mientras")|strcmp(ptr,"si")|strcmp(ptr,"entero")|\
+                strcmp(ptr,"real")|strcmp(ptr,"verdadero")|strcmp(ptr,"falso")|\
+            strcmp(ptr,"principal")|strcmp(ptr,"logico")|strcmp(ptr,"regresa");
     return data2return;
 }
 
@@ -229,8 +225,7 @@ int main (int argc, char **argv)
                               /*pointer to read file*/
   char character;
   char buffer[SIZEBUFF];
-  char *ptrbuffer;
-  char *ptrbufferstart;
+
 
 
 
@@ -271,17 +266,18 @@ int main (int argc, char **argv)
       temp = search(character);
       if( temp < 255 )
       {
-        if(checkPR(ptrbufferstart)== 0){
+
+        if(checkPR(buffer)!= 0){
         arrayTokens[numoftokens].line=numline;
         arrayTokens[numoftokens].col=numcol;
-        arrayTokens[numoftokens].tag="PR";
+        arrayTokens[numoftokens].tag="ID";
         strcpy(arrayTokens[numoftokens].value,buffer);
         }
         else
         {
           arrayTokens[numoftokens].line=numline;
           arrayTokens[numoftokens].col=numcol;
-          arrayTokens[numoftokens].tag="ID";
+          arrayTokens[numoftokens].tag="PR";
           strcpy(arrayTokens[numoftokens].value,buffer);
         }
 
@@ -293,9 +289,11 @@ int main (int argc, char **argv)
           /* code */
           buffer[i]=0;
         }
-
+        ptrbuffer=ptrbufferstart;
+        numoftokens++;
         checksimbols(character);
-
+        ptrbuffer=ptrbufferstart;
+        //numoftokens++;
 
       }
       else{
@@ -310,10 +308,10 @@ int main (int argc, char **argv)
           /* code */
           buffer[i]=0;
         }
-
-      }
         ptrbuffer=ptrbufferstart;
         numoftokens++;
+      }
+
 
     }
 
@@ -398,11 +396,17 @@ int main (int argc, char **argv)
 
   readFile = fopen ( "ListTokens.txt", "w+");
   printf("%i\n", numoftokens );
-  sprintf(buffer,"%i.\n",numoftokens);
+  sprintf(buffer,"%i\n",numoftokens);
   fputs(buffer,readFile);
+  printf("%s\n","start for" );
   for (int i = 0; i < numoftokens; i++)
   {
-    //printf("%s\n",arrayTokens[i].tag );
+
+    //printf("%i\n",i );
+    printf("%s,",arrayTokens[i].tag );
+    printf("%s,",arrayTokens[i].value );
+    printf("%i,",arrayTokens[i].col );
+    printf("%i\n",arrayTokens[i].line );
     fputs(arrayTokens[i].tag,readFile);fputs(",",readFile);
     fputs(arrayTokens[i].value,readFile);fputs(",",readFile);
     sprintf(buffer,"%i,",arrayTokens[i].col);fputs(buffer,readFile);
