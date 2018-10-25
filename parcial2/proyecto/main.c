@@ -23,7 +23,32 @@ int labels=0;
 
 void Analize(int numberofwords)
 {
+  int indexArraytemp=0;
+  char *temp;
 
+  temp = ((char*)&arrayofreadline[indexArraytemp][0]);
+  //printf("%s   ", temp );
+  if(*temp =EOF)
+  {
+   temp=((char*)&arrayofreadline[indexArraytemp+1][0]);
+  }
+  //printf("%s\n", temp );
+  if( strcmp(temp,"int")==0)
+  {
+  }
+  else if ( strcmp(temp,"void")==0)
+  {
+  }
+  else if (strcmp(temp,"else")==0) {
+  }
+  else if (strcmp(temp,"return")==0) {
+  }
+  else if (strcmp(temp,"while")==0) {
+    //printf("%s\n",  "tengo un return");
+  }
+  else // variable con operacion o llamada a funcion
+  {
+  }
 }
 
 
