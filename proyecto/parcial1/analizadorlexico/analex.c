@@ -32,7 +32,7 @@ token arrayTokens[SIZEARRAY];
 char *ptrbuffer;
   char *ptrbufferstart;
 /*table of symbols*/
-/*0->\t,1->\n,2->space,3-> \r*/
+	/*0->\t,1->\n,2->space,3-> \r*/
 /*4->{,5->},6->(,7->)*/
 /*8->,,9->;,10-> <,11-> >*/
 /*12-> =,13-> !,14 -> |,15-> &*/

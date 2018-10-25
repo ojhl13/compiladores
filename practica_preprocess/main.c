@@ -11,7 +11,7 @@ char * searchname (char *data)
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char  **argv[])
 {
 	char typespace[] ={'\t','\n', ' ', '\r' };
 	char *fileName = argv[1];
