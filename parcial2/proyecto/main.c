@@ -27,7 +27,7 @@ int indexWord =0;
 int temporales=0;
 int parametros=0;
 int labels=0;
-int indextripletas
+int indextripletas;
 void Analize(int numberofwords)
 {
   int indexArraytemp=0;
@@ -49,8 +49,8 @@ void Analize(int numberofwords)
     {
       temp = ((char*)&arrayofreadline[indexArraytemp-2][0]);
       printf("%s %s\n", "entry",temp );
-      codeinter[indextripletas].operador="entry";
-      codeinter[indextripletas]..openado1=temp;
+    //codeinter[indextripletas].operador[]="entry";
+  //codeinter[indextripletas].openado1=temp;
       indextripletas++;
     }
     else if( *temp == '=')
@@ -61,11 +61,11 @@ void Analize(int numberofwords)
         {
           temp = ((char*)&arrayofreadline[indexArraytemp-2][0]);
           printf("%s = ",temp );
-          codeinter[indextripletas]..openado1=temp;
+      //codeinter[indextripletas].openado1=temp;
           temp = ((char*)&arrayofreadline[indexArraytemp][0]);
           printf("%s\n", temp);
-          codeinter[indextripletas].operador="=";
-          codeinter[indextripletas]..openado2=temp;
+        //codeinter[indextripletas].operador="=";
+      //codeinter[indextripletas].openado2=temp;
           indextripletas++;
         }
     }
@@ -80,13 +80,13 @@ void Analize(int numberofwords)
     {
       temp = ((char*)&arrayofreadline[indexArraytemp-2][0]);
       printf("%s %s\n", "entry",temp );
-      codeinter[indextripletas].operador="entry";
-      codeinter[indextripletas]..openado1=temp;
+    //codeinter[indextripletas].operador="entry";
+  //codeinter[indextripletas].openado1=temp;
       indextripletas++;
 
     }
   }
-  else if( strcmp(temp,"if")==0 )
+  else if( strcmp(temp,"if")==0
   {
     //printf("%s\n",  "tengo un if");
     indexArraytemp+=3;
@@ -96,9 +96,9 @@ void Analize(int numberofwords)
       temp = ((char*)&arrayofreadline[indexArraytemp-1][0]);
       printf("if flase %s goto L%i\n", temp ,labels);
       labels++;
-      codeinter[indextripletas].operador="if";
-      codeinter[indextripletas]..openado1=temp;
-      codeinter[indextripletas]..openado2=("L%i",labels);
+    //codeinter[indextripletas].operador="if";
+  //codeinter[indextripletas].openado1=temp;
+  //codeinter[indextripletas].openado2=("L%i",labels);
       indextripletas++;
     }
     else{
