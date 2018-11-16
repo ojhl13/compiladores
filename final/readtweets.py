@@ -1,20 +1,24 @@
-import tweetpy
+import tweepy
 import pandas as pd
 from os import environ
+from keys import *
 
 # Use your Twitter API keys to connect
-cskey=environ["TWITTER_CONSUMER_KEY"]
-cssecret=environ["TWITTER_CONSUMER_SECRET"]
-auth = tweetpy.OAuthHandler(cskey,cssecret)
-acctok=environ["TWITTER_ACCESS_TOKEN"]
-acctoksec=environ["TWITTER_ACCESS_TOKEN_SECRET"]
+auth = tweepy.OAuthHandler(cskey,cssecret)
 auth.set_access_token(acctok,acctoksec)
 
-api = tweetpy.API(auth_handler=auth, wait_on_rate_limit_notify=True,wait_on_rate_limit=True)
+api = tweepy.API(auth_handler=auth, wait_on_rate_limit_notify=True,wait_on_rate_limit=True)
 
 print "termine"
-raw_imput()
 
+# If the authentication was successful, you should
+# see the name of the account print out
+print(api.me().name)
+
+# If the application settings are set for "Read and Write" then
+# this line should tweet out the message to your account's
+# timeline. The "Read and Write" setting is on https://dev.twitter.com/apps
+api.update_status(status='Updating using OAuth authentication via Tweepy!')
 
 def get_timeline_data():
 
@@ -31,4 +35,5 @@ def get_timeline_data():
     return tweets
 
 data = get_timeline_data()
+print data
 data.to_csv("twitter.csv", sep='\t', index=False)
