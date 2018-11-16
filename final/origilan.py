@@ -1,19 +1,18 @@
-import tweetpy
-import pandas as pd
-from os import environ
+
+import tweepy  # Manage Twitter API
+import pandas as pd  # to create dataframes
+from os import environ  # To get the environment variables
 
 # Use your Twitter API keys to connect
-cskey=environ["TWITTER_CONSUMER_KEY"]
-cssecret=environ["TWITTER_CONSUMER_SECRET"]
-auth = tweetpy.OAuthHandler(cskey,cssecret)
-acctok=environ["TWITTER_ACCESS_TOKEN"]
-acctoksec=environ["TWITTER_ACCESS_TOKEN_SECRET"]
-auth.set_access_token(acctok,acctoksec)
 
-api = tweetpy.API(auth_handler=auth, wait_on_rate_limit_notify=True,wait_on_rate_limit=True)
+auth = tweepy.OAuthHandler(environ["TWITTER_CONSUMER_KEY"],
+                           environ["TWITTER_CONSUMER_SECRET"])
 
-print "termine"
-raw_imput()
+auth.set_access_token(environ["TWITTER_ACCESS_TOKEN"],
+                      environ["TWITTER_ACCESS_TOKEN_SECRET"])
+
+api = tweepy.API(auth_handler=auth, wait_on_rate_limit_notify=True,
+                 wait_on_rate_limit=True)
 
 
 def get_timeline_data():
